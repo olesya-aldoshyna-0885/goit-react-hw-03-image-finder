@@ -1,56 +1,45 @@
 import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
-import toast from 'react-hot-toast';
 import {
-    SearchContainer,
-    SearchForm,
-    FormButton,
-    Label,
-    FormInput
+  SearchContainer,
+  SearchForm,
+  FormButton,
+  FormInput,
 } from './Searchbar.styled';
 
-
 class Searchbar extends Component {
-    state = {
-        query: '',
-    }
+  state = { query: '' };
 
-    handleChange = e => {
+  handleChange = e => {
     const { value } = e.currentTarget;
-        this.setState({ query: value });
-        console.log({query: value} )
+    this.setState({ query: value });
   };
 
-    handleSubmit = (e) => {
-        const { query } = this.state;
-		e.preventDefault()
-		if (query) {
-		    this.props.onSubmit(query)
-            this.setState({ query: '' })
-            console.log(query);
-             }
-		return toast.error('Please write something!')
-	}
-    render() {
-        return (
-            <SearchContainer>
-                <SearchForm onSubmit={this.handleSubmit}>
-                    <FormButton type="submit">
-                        <ImSearch style={{ width: 25, height: 25 }} />
-                        <Label>Search</Label>
-                    </FormButton>
+  handleSubmit = e => {
+    const { query } = this.state;
+    e.preventDefault();
+    this.props.onSubmit(query);
+    e.currentTarget.reset();
+  };
+  render() {
+    return (
+      <SearchContainer>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <FormButton type="submit">
+            <ImSearch style={{ width: 25, height: 25 }} />
+          </FormButton>
 
-                    <FormInput
-                        className="input"
-                        type="text"
-                        autocomplete="off"
-                        placeholder="Search images and photos"
-                        onChange={this.handleChange}
-                    />
-                </SearchForm>
-            </SearchContainer>
-            )
-        }
-    }
+          <FormInput
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleChange}
+          />
+        </SearchForm>
+      </SearchContainer>
+    );
+  }
+}
 
 export default Searchbar;

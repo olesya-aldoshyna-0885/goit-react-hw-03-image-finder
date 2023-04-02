@@ -1,13 +1,32 @@
-// import PropTypes from 'prop-types';
+import { Component } from 'react';
+import Modal from '../Modal/Modal';
 import { ItemContainer, ImageGallery } from './ImageGalleryItem.styled';
-import { Modal } from "../Modal/Modal";
 
-const ImageGalleryItem = (params) => {
+class ImageGalleryItem extends Component {
+
+  state = { showModal: false };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  render() {
+    const { showModal } = this.state;
+    const { id, webformatURL, tags, largeImageURL } = this.props;
+    
     return (
-    <ItemContainer>
-        <Modal />
-    </ItemContainer>  
-  )
+      <>
+        <ItemContainer key={id} onClick={this.toggleModal}>
+          <ImageGallery src={webformatURL} alt={tags} />
+        </ItemContainer>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={tags} />
+          </Modal>
+        )}
+      </>
+    );
+  }
 }
 
-
+export default ImageGalleryItem;

@@ -18,3 +18,16 @@ export const getImages = async (query, page) => {
   });
   return data;
 };
+
+
+// export async function getImages(value, page = 1) {
+//   try {
+//     const responce = await axios.get(
+//       `https://pixabay.com/api/?q=${value}&page=${page}&key=34919235-4eb9cfcad5af8f565adf9ce4e&image_type=photo&orientation=horizontal&per_page=12`
+//     );
+//     console.log('value:', value);
+//     return responce.data;
+//   } catch (error) {
+//     console.log('error:', error);
+//   }
+// }
